@@ -1,0 +1,27 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\fireBall.cs">
+    <Files>
+      <File FileName="Assets\ScoreController.cs" Line="1" Column="1" />
+      <File FileName="Assets\SongSelector.cs" Line="1" Column="1" />
+      <File FileName="Assets\ButtonBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\ControlSettings.cs" Line="1" Column="1" />
+      <File FileName="Assets\ButtonSetting.cs" Line="1" Column="1" />
+      <File FileName="Assets\LeaderBoardBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\LeaderBoardText.cs" Line="1" Column="1" />
+      <File FileName="Assets\TotalText.cs" Line="1" Column="1" />
+      <File FileName="Assets\blockManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\ScoreText.cs" Line="1" Column="1" />
+      <File FileName="Assets\ballBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\ButtonInitiation.cs" Line="1" Column="1" />
+      <File FileName="Assets\playerMove.cs" Line="1" Column="1" />
+      <File FileName="Assets\movement.cs" Line="1" Column="1" />
+      <File FileName="Assets\EndScreenCommands.cs" Line="1" Column="1" />
+      <File FileName="Assets\fireBall.cs" Line="24" Column="18" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
