@@ -14,6 +14,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.0f3</UnityVersion>
@@ -282,29 +283,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ballBehavior.cs" />
-    <Compile Include="Assets\blockManager.cs" />
-    <Compile Include="Assets\ButtonBehavior.cs" />
-    <Compile Include="Assets\ButtonInitiation.cs" />
-    <Compile Include="Assets\ButtonSetting.cs" />
-    <Compile Include="Assets\ControlSettings.cs" />
-    <Compile Include="Assets\EndScreenCommands.cs" />
-    <Compile Include="Assets\fireBall.cs" />
-    <Compile Include="Assets\LeaderBoardBehavior.cs" />
-    <Compile Include="Assets\LeaderBoardText.cs" />
-    <Compile Include="Assets\movement.cs" />
-    <Compile Include="Assets\noteBehavior.cs" />
-    <Compile Include="Assets\playerMove.cs" />
-    <Compile Include="Assets\ScoreController.cs" />
-    <Compile Include="Assets\ScoreText.cs" />
-    <Compile Include="Assets\SongSelector.cs" />
-    <Compile Include="Assets\TotalText.cs" />
+    <Compile Include="Assets\Scripts\ballBehavior.cs" />
+    <Compile Include="Assets\Scripts\blockManager.cs" />
+    <Compile Include="Assets\Scripts\ButtonBehavior.cs" />
+    <Compile Include="Assets\Scripts\ButtonInitiation.cs" />
+    <Compile Include="Assets\Scripts\ButtonSetting.cs" />
+    <Compile Include="Assets\Scripts\ControlSettings.cs" />
+    <Compile Include="Assets\Scripts\EndScreenCommands.cs" />
+    <Compile Include="Assets\Scripts\fireBall.cs" />
+    <Compile Include="Assets\Scripts\LeaderBoardBehavior.cs" />
+    <Compile Include="Assets\Scripts\LeaderBoardText.cs" />
+    <Compile Include="Assets\Scripts\movement.cs" />
+    <Compile Include="Assets\Scripts\noteBehavior.cs" />
+    <Compile Include="Assets\Scripts\PauseMenu.cs" />
+    <Compile Include="Assets\Scripts\playerMove.cs" />
+    <Compile Include="Assets\Scripts\ScoreController.cs" />
+    <Compile Include="Assets\Scripts\ScoreText.cs" />
+    <Compile Include="Assets\Scripts\SongSelector.cs" />
+    <Compile Include="Assets\Scripts\TotalText.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Records\sitting around lyrics.txt" />
-    <None Include="Assets\Records\topscores.txt" />
-    <None Include="Assets\Songs\DoubleNotes.txt" />
-    <None Include="Assets\Songs\Test.txt" />
+    <None Include="Assets\Resources\Songs\DoubleNotes.txt" />
+    <None Include="Assets\Resources\Songs\Test.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
