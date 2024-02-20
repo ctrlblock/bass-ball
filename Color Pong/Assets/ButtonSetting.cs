@@ -17,14 +17,13 @@ public class ButtonSetting : MonoBehaviour {
 	public void setSong() {
 		SongSelector.songName = GetComponentInChildren<Text> ().text;
 		if (SongSelector.songName == "Random") {
-			SongSelector.songPath = "Random";
+			SongSelector.songName = "Random";
 		} else {
-			SongSelector.songPath = "Assets/Songs/" + GetComponentInChildren<Text> ().text + ".txt";
+			SongSelector.songName = GetComponentInChildren<Text>().text;
 		}
-		Debug.Log (SongSelector.songPath);
 	}
 
 	public void setLeaderBoard() {
-		lbt.GetComponent<LeaderBoardText>().displayLeaderBoard(LeaderBoardBehavior.findSongRecord (GetComponentInChildren<Text> ().text));
+		lbt.GetComponent<LeaderBoardText>().displayLeaderBoard(LeaderBoardBehavior.findSongRecords (GetComponentInChildren<Text> ().text));
 	}
 }

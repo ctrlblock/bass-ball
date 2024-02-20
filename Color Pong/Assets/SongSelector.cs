@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SongSelector : MonoBehaviour {
-	public static string songPath = "Random";
 	public static string songName = "Random";
 	// Use this for initialization
 	void Start () {
@@ -16,7 +15,7 @@ public class SongSelector : MonoBehaviour {
 	}
 
 	public void setSongRandom() {
-		songPath = "Random";
+		songName = "Random";
 	}
 
 }

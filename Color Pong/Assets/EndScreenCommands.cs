@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class EndScreenCommands : MonoBehaviour {
 
+	public UnityEngine.UI.Text scoreText;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -20,6 +22,11 @@ public class EndScreenCommands : MonoBehaviour {
 
 	public void playAgain() {
 		SceneManager.LoadScene (1);
+	}
+
+	public void setScore (int score) {
+		scoreText.text = "Score : " + score;
+	
 	}
 }
 

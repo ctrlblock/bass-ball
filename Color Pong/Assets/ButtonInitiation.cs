@@ -18,10 +18,10 @@ public class ButtonInitiation : MonoBehaviour {
 		
 
 	public void initiateButtons() {
-		List<string> filePaths = ButtonBehavior.TryGetUnityObjectsOfTypeFromPath ("Assets/Songs");
-		for (int i = 0; i < filePaths.Count; i++) {
+		List<string> songNames = ButtonBehavior.getSongNames ();
+		for (int i = 0; i < songNames.Count; i++) {
 			GameObject button1 = Instantiate (button, gameObject.transform);
-			button1.GetComponentInChildren<Text> ().text = filePaths [i].Split ('\\') [1];
+			button1.GetComponentInChildren<Text> ().text = songNames[i];
 			button1.SetActive (true);
 			Debug.Log (button1);
 		}

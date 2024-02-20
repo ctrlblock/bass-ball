@@ -5,65 +5,72 @@ using System.IO;
 
 public class LeaderBoardBehavior : MonoBehaviour {
 
-	public static List<string> findSongRecord(string recordName) {
-		string filePath = "Assets/Records/topscores.txt";
+	public static string defaultScores = "DoubleNotes,A:10,A:8;"
+		+ "Random,A:80,A:79,A:79,A:78";
 
-		//Read the text from directly from the test.txt file
-		StreamReader reader = new StreamReader(filePath); 
-		string line = reader.ReadLine();
-		while (line != null) {
-			string[] splitLine = line.Split (new char[] { ',' });
-			if (splitLine[0].Equals(recordName)) {
-				Debug.Log (line);
-				return new List<string> (splitLine);
+	public static string loadRecords() {
+		//FOR TESTING ONLY. TO KEEP DATA CONSISTENT
+		//PlayerPrefs.SetString("TopScores", defaultScores);
+		print (PlayerPrefs.GetString ("TopScores", defaultScores));
+		return PlayerPrefs.GetString ("TopScores", defaultScores);
+	}
+
+	public static void saveRecords(string record) {
+		PlayerPrefs.SetString("TopScores", record);
+	}
+	public static List<string> findSongRecords(string recordName) {
+		string records = loadRecords();
+		List<string> songScores = new List<string>(records.Split(new char[] { ';' }));
+		for(int i = 0; i < songScores.Count; i++) {
+			string[] items = songScores[i].Split (new char[] { ',' });
+			if (items[0].Equals(recordName)) {
+				return new List<string> (items);
 			}
-			line = reader.ReadLine();
-		
 		}
 		Debug.Log ("NOT FOUND");
-		reader.Close();
 		return new List<string>();
 	}
 
 	public static void updateSongRecord(string recordName, int newScore) {
-		string filePath = "Assets/Records/topscores.txt";
-
-		//Read the text from directly from the test.txt file
-		StreamReader reader = new StreamReader(filePath); 
+		
 		string document = "";
 		bool songFound = false;
-		string line = reader.ReadLine();
-		while (line != null) {
-			string[] splitLine = line.Split (new char[] { ',' });
-			List<string> lineList = new List<string>(splitLine); 
-			if (splitLine [0].Equals (recordName)) {
+		string newRecord = "A:" + newScore.ToString();
+
+		string records = loadRecords();
+		List<string> songRecordsList = new List<string>(records.Split(new char[] { ';' }));
+
+
+		for(int i = 0; i < songRecordsList.Count; i++) {
+			List<string> songRecords = new List<string>(songRecordsList[i].Split(new char[] { ',' }));
+			if (songRecords[0].Equals (recordName)) {
 				songFound = true;
 				bool added = false;
 				//calculate new records for this song
-				for(int i = 1; i < lineList.Count; i++) {
-					if(newScore > int.Parse(lineList[i])) {
-						lineList.Insert (i, newScore.ToString());
+				for(int j = 1; j < songRecords.Count; j++) {
+					string[] scoreTuple = songRecords [j].Split (new char[] { ':' });
+					int score = int.Parse(scoreTuple[1]);
+					if(newScore > score) {
+						songRecords.Insert (j, newRecord);
 						added = true;
-						if(lineList.Count > 11)
-							lineList.RemoveAt (11);
+						if(songRecords.Count > 11)
+							songRecords.RemoveAt (11);
 						break;
 					}
 				}
-				if (lineList.Count < 11 && !added) {
-					lineList.Add (newScore.ToString());
+				if (songRecords.Count < 10 && !added) {
+					songRecords.Add (newRecord);
 				}
 
 			}
-			document+= string.Join (",", lineList.ToArray ()) + '\n';
-			line = reader.ReadLine();
+			if (i > 0) {
+				document += ";";
+			}
+			document += string.Join (",", songRecords.ToArray ());
 		}
 		if (!songFound) {
-			document += '\n' + recordName + "," + newScore.ToString ();
+			document += ";" + recordName + "," + newRecord;
 		}
-
-		reader.Close();
-		StreamWriter writer = new StreamWriter (filePath);
-		writer.Write (document);
-		writer.Close ();
+		saveRecords (document);
 	}
 }

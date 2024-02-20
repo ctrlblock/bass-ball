@@ -7,22 +7,37 @@ using UnityEngine.SceneManagement;
 public class ButtonBehavior : MonoBehaviour {
 
 	public void startGame() {
-		Debug.Log (TryGetUnityObjectsOfTypeFromPath("Assets/Songs"));
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 	}
 
-	public static List<string> TryGetUnityObjectsOfTypeFromPath (string path) 
+
+	public static string getSong (string songName) 
 	{
-		string[] filePaths = System.IO.Directory.GetFiles (path);
-		List<string> usefulFP = new List<string>();
-		for(int i = 0; i < filePaths.Length; i++){
-			String[] s = filePaths[i].Split ('.');
-			if (s [s.Length - 1] == "txt") {
-				usefulFP.Add (s [s.Length - 2]);
-				Debug.Log (filePaths[i]);
-			}
-			}
-		return usefulFP;
+		string filePath = "Songs/" + songName;
+		print (filePath);
+		var textFile = Resources.Load<TextAsset>(filePath);
+		return textFile.text;
+
+
+
+	}
+
+	public static List<string> getSongNames() 
+	{
+
+		string folderPath = "Songs";
+
+		UnityEngine.Object[] assets = Resources.LoadAll<TextAsset>(folderPath);
+		List<string> songNames = new List<string>();
+		foreach (UnityEngine.Object asset in assets)
+		{
+			
+			String name = asset.name.Split ('.')[0];
+			Debug.Log (name);
+			songNames.Add (name);
+	
+		}
+		return songNames;
 	}
 		
 }

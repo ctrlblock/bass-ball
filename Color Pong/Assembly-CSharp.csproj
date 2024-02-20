@@ -63,14 +63,15 @@
      <Compile Include="Assets\LeaderBoardText.cs" />
      <Compile Include="Assets\movement.cs" />
      <Compile Include="Assets\noteBehavior.cs" />
+     <Compile Include="Assets\PauseMenu.cs" />
      <Compile Include="Assets\playerMove.cs" />
      <Compile Include="Assets\ScoreController.cs" />
      <Compile Include="Assets\ScoreText.cs" />
      <Compile Include="Assets\SongSelector.cs" />
      <Compile Include="Assets\TotalText.cs" />
      <None Include="Assets\Records\topscores.txt" />
-     <None Include="Assets\Songs\Test.txt" />
-     <None Include="Assets\Songs\DoubleNotes.txt" />
+     <None Include="Assets\Resources\Songs\Test.txt" />
+     <None Include="Assets\Resources\Songs\DoubleNotes.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

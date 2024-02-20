@@ -16,9 +16,10 @@ public class LeaderBoardText : MonoBehaviour {
 	}
 
 	public void displayLeaderBoard(List<string> board) {
-		string finalText = SongSelector.songName + ":\n";
+		string finalText = SongSelector.songName + ":\n\n";
 		for (int i = 1; i < board.Count; i++) {
-			finalText += board[i] + "\n\n";
+			string[] recordTuple = board[i].Split (new char[] { ':' });
+			finalText += i + " - " + recordTuple[1] + "\n\n";
 		}
 		GetComponent<Text> ().text = finalText;
 	}

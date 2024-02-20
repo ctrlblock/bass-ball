@@ -39,7 +39,7 @@ public class blockManager : MonoBehaviour {
 		if (ScoreController.total >= totalNotes) {
 			endGame ();
 		}
-		if ((int)((Time.time-startTime)*2.5)-3 > timer) {
+		if ((int)((Time.time-startTime)*2.5) -3 > timer) {
 			timer++;
 			if (!triggered) {
 				if (random) {
@@ -55,6 +55,7 @@ public class blockManager : MonoBehaviour {
 
 	void endGame() {
 		LeaderBoardBehavior.updateSongRecord (SongSelector.songName, ScoreController.score);
+		endScreen.GetComponent<EndScreenCommands>().setScore(ScoreController.score);
 		endScreen.SetActive (true);
 		GameObject.Find ("Game").SetActive (false);
 	}
@@ -93,16 +94,13 @@ public class blockManager : MonoBehaviour {
 	}
 
 	void readSong() {
-		if (SongSelector.songPath.Equals( "Random")) {
-			Debug.Log ("Random Selected");
+		if (SongSelector.songName == "Random") {
 			random = true;
 			totalNotes = 80;
 		} else {
 			totalNotes = 0;
-			Debug.Log ("Song Selected");
-			StreamReader reader = new StreamReader (SongSelector.songPath); 
-			string[] arr = reader.ReadToEnd().Split (',');
-			reader.Close();
+			string songData = ButtonBehavior.getSong (SongSelector.songName);
+			string[] arr = songData.Split (',');
 			for (int i = 0; i < arr.Length; i += 2 ) {
 				songTimes.Add (int.Parse(arr [i])); 
 				songNotes.Add(arr [i+1]);
