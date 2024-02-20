@@ -13,11 +13,11 @@ public class fireBall : MonoBehaviour {
 		sr.color = color;
 	}
 
-	public void fire(string songNotes) {
+	public void fire(string songNote) {
 		ballCopy = Instantiate (ball);
 		ballCopy.transform.position = transform.position;
 		ballBehavior ballScript = ballCopy.GetComponent<ballBehavior> ();
-		ballScript.setColor (color, songNotes);
+		ballScript.setColor (color, songNote);
 	}
 	
 	// Update is called once per frame

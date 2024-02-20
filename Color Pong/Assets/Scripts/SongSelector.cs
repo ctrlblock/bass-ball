@@ -15,7 +15,11 @@ public class SongSelector : MonoBehaviour {
 	}
 
 	public void setSongRandom() {
-		songName = "Random";
+		songName = "Random1";
+	}
+
+	public void setSongRandom2() {
+		songName = "Random2";
 	}
 
 }

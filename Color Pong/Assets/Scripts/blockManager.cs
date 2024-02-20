@@ -6,6 +6,10 @@ using System.Collections.Specialized;
 using UnityEngine.SceneManagement;
 
 public class blockManager : MonoBehaviour {
+	public SongSupplier songSupplier;
+
+	bool isEasyEnabled = true;
+
 	//the OrderedDictionary enumerator is not treating me kindly, so for now I am just implementing 2 lists
 	private List<int> songTimes = new List<int>();
 	private List<string> songNotes = new List<string>();
@@ -43,8 +47,14 @@ public class blockManager : MonoBehaviour {
 			timer++;
 			if (!triggered) {
 				if (random) {
-					randomUpdate (timer);
-				} else {
+					string noteUpdate = songSupplier.songUpdate(timer);
+                    if (noteUpdate != null)
+					{
+						fireNotes(noteUpdate);
+						songProgress++;
+					}
+                    triggered = true;
+                } else {
 					songUpdate (timer);
 				}
 			}
@@ -60,44 +70,35 @@ public class blockManager : MonoBehaviour {
 		GameObject.Find ("Game").SetActive (false);
 	}
 
+	void fireNotes(string notes) {
+        for (int i = 0; i < notes.Length; i++)
+        {
+			//sends both notes to each block, so that the game can track which ones are intended for double color matching
+            int blockNumber = int.Parse(notes[i].ToString());
+            blocks[blockNumber].fire(notes);
+        }
+    }
+
 	void songUpdate(int time) {
 		if (songTimes.Count > songProgress) {
 			if (songTimes [songProgress] == time) {
-				for (int i = 0; i < songNotes [songProgress].Length; i++) {
-					int songNote = int.Parse (songNotes [songProgress] [i].ToString ());
-					blocks [songNote].fire (songNotes [songProgress]);
-				}
+				fireNotes(songNotes[songProgress]);
 				triggered = true;
 				songProgress++;
 			}
 		}
 	}
 
-	void randomUpdate(int time) {
-		string note = GenerateNextNote ();
-		for (int i = 0; i < note.Length; i++) {
-			blocks [int.Parse(note[i].ToString())].fire (note);
-		}
-			triggered = true;
-			songProgress++;
-	}
-
-	string GenerateNextNote() {
-		int note = ((int)(Random.value * 3)) % 3;
-		string noteString = note.ToString ();
-		if (note < 2) {
-			int secondNote = ((int)(Random.value * 2)) % 2;
-			if (secondNote == 1)
-				noteString += (note + 1).ToString ();
-		}
-		return noteString;
-	}
-
 	void readSong() {
-		if (SongSelector.songName == "Random") {
+		if (SongSelector.songName == "Random1" | SongSelector.songName == "Random2") {
 			random = true;
 			totalNotes = 80;
-		} else {
+			if (SongSelector.songName == "Random1")
+			{
+				songSupplier = new EasyRandomSongSupplier();
+			}
+			else { songSupplier = new RandomSongSupplier(); }
+        } else {
 			totalNotes = 0;
 			string songData = ButtonBehavior.getSong (SongSelector.songName);
 			string[] arr = songData.Split (',');
