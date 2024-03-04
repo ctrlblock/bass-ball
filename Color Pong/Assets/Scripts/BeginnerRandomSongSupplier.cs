@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EasyRandomSongSupplier : SongSupplier
-{
+public class BeginnerRandomSongSupplier : SongSupplier {
+
     bool thisNote = false;
 
-    public EasyRandomSongSupplier() {
+    public BeginnerRandomSongSupplier() {
         setNoteCount(30);
     }
 
@@ -14,20 +14,14 @@ public class EasyRandomSongSupplier : SongSupplier
     override
     public string songUpdate(int time)
     {
-            string note = GenerateNextNote();
-            return note;
+        string note = GenerateNextNote();
+        return note;
     }
 
     string GenerateNextNote()
     {
         int note = ((int)(Random.value * 3)) % 3;
         string noteString = note.ToString();
-        if (note < 2)
-        {
-            int secondNote = ((int)(Random.value * 2)) % 2;
-            if (secondNote == 1)
-                noteString += (note + 1).ToString();
-        }
         return noteString;
     }
 

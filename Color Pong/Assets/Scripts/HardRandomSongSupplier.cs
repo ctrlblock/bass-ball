@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EasyRandomSongSupplier : SongSupplier
+public class HardRandomSongSupplier : SongSupplier
 {
     bool thisNote = false;
 
-    public EasyRandomSongSupplier() {
-        setNoteCount(30);
+    public HardRandomSongSupplier()
+    {
+        setNoteCount(80);
     }
 
 
     override
     public string songUpdate(int time)
     {
-            string note = GenerateNextNote();
-            return note;
+        string note = GenerateNextNote();
+        return note;
     }
 
     string GenerateNextNote()
@@ -34,6 +35,6 @@ public class EasyRandomSongSupplier : SongSupplier
     override
     public double getSongSpeed()
     {
-        return base.getSongSpeed() / 2;
+        return base.getSongSpeed() * 1.25;
     }
 }

@@ -15,14 +15,16 @@ public class blockManager : MonoBehaviour {
 	private List<string> songNotes = new List<string>();
 	int timer = 0;
 	int totalNotes = 0;
-	private int songProgress = 0;
+	private int notesSent = 0;
 	public int numberBlocks = 3;
 	bool random = false;
+	bool tutorial = false;
 	public List<fireBall> blocks = new List<fireBall>();
-	public GameObject noteObject;
+	public TutorialManager noteObject;
 	public bool triggered = false;
 	public ScoreController sc;
 	float startTime = 0;
+	public GameObject tutorialManager;
 
 	public GameObject endScreen;
 	// Use this for initialization
@@ -43,7 +45,10 @@ public class blockManager : MonoBehaviour {
 		if (ScoreController.total >= totalNotes) {
 			endGame ();
 		}
-		if ((int)((Time.time-startTime)*2.5) -3 > timer) {
+		//SongSupplier could supply its own coefficient here, to change speed
+		//print(notesSent);
+		//print(totalNotes);
+		if ((int)((Time.time-startTime)*songSupplier.getSongSpeed()) -3 > timer && notesSent < totalNotes) {
 			timer++;
 			if (!triggered) {
 				if (random) {
@@ -51,10 +56,13 @@ public class blockManager : MonoBehaviour {
                     if (noteUpdate != null)
 					{
 						fireNotes(noteUpdate);
-						songProgress++;
+						notesSent+=noteUpdate.Length;
 					}
                     triggered = true;
                 } else {
+					if (tutorial) {
+                        tutorialManager.GetComponent<TutorialManager>().updateTutorial((Time.time - startTime) * songSupplier.getSongSpeed() - 3);
+					}
 					songUpdate (timer);
 				}
 			}
@@ -75,31 +83,50 @@ public class blockManager : MonoBehaviour {
         {
 			//sends both notes to each block, so that the game can track which ones are intended for double color matching
             int blockNumber = int.Parse(notes[i].ToString());
-            blocks[blockNumber].fire(notes);
+			blocks[blockNumber].fire(notes);
         }
     }
 
 	void songUpdate(int time) {
-		if (songTimes.Count > songProgress) {
-			if (songTimes [songProgress] == time) {
-				fireNotes(songNotes[songProgress]);
+        if (songTimes.Count > notesSent) {
+			if (songTimes [notesSent] == time) {
+				fireNotes(songNotes[notesSent]);
 				triggered = true;
-				songProgress++;
+                notesSent++;
 			}
 		}
 	}
 
 	void readSong() {
-		if (SongSelector.songName == "Random1" | SongSelector.songName == "Random2") {
+		if (SongSelector.songName == "1 - Sunday Stroll" | SongSelector.songName == "2 - Hopscotch" |
+			SongSelector.songName == "3 - Heating Up" | SongSelector.songName == "4 - HellFire") {
 			random = true;
-			totalNotes = 80;
-			if (SongSelector.songName == "Random1")
+			if (SongSelector.songName == "1 - Sunday Stroll")
 			{
-				songSupplier = new EasyRandomSongSupplier();
+				songSupplier = new BeginnerRandomSongSupplier();
 			}
-			else { songSupplier = new RandomSongSupplier(); }
+            else if (SongSelector.songName == "2 - Hopscotch")
+            {
+                songSupplier = new EasyRandomSongSupplier();
+            }
+            else if (SongSelector.songName == "4 - HellFire") { 
+				songSupplier = new HardRandomSongSupplier();
+			}
+			else
+			{
+				songSupplier = new RandomSongSupplier();
+			}
+            totalNotes = songSupplier.getNoteCount();
+
         } else {
-			totalNotes = 0;
+            if (SongSelector.songName == "0 - Tutorial")
+            {
+				tutorial = true;
+                tutorialManager.SetActive(true);
+            }
+
+            totalNotes = 0;
+			songSupplier = new DefaultSongSupplier();
 			string songData = ButtonBehavior.getSong (SongSelector.songName);
 			string[] arr = songData.Split (',');
 			for (int i = 0; i < arr.Length; i += 2 ) {
@@ -108,14 +135,13 @@ public class blockManager : MonoBehaviour {
 				totalNotes += arr [i+1].Length;
 			}
 		}
-		Debug.Log ("Total Notes: " + totalNotes);
 	}
 
 	public void resetForNextGame() {
 		//The static variables persist through scenes, whereas the GameObjects are destroyed when scenes switch
 		ScoreController.score = 0;
 		ScoreController.total = 0;
-		songProgress = 0;
+		notesSent = 0;
 		triggered = false;
 		timer = 0;
 	}

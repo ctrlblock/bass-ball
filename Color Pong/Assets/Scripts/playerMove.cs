@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class playerMove : MonoBehaviour {
-	private float speed = 160f;
+	private float speed = 80f;
 	SpriteRenderer sr;
 	// Use this for initialization
 	void Start () {

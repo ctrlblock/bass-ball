@@ -5,8 +5,8 @@ using System.IO;
 
 public class LeaderBoardBehavior : MonoBehaviour {
 
-	public static string defaultScores = "DoubleNotes,A:10,A:8;"
-		+ "Random,A:80,A:79,A:79,A:78";
+	public static string defaultScores = "DoubleNotes,A:10;"
+		+ "Random2,A:80,A:78;";
 
 	public static string loadRecords() {
 		//FOR TESTING ONLY. TO KEEP DATA CONSISTENT

@@ -16,9 +16,6 @@ public class ButtonSetting : MonoBehaviour {
 
 	public void setSong() {
 		SongSelector.songName = GetComponentInChildren<Text> ().text;
-		if (SongSelector.songName != "Random1" && SongSelector.songName != "Random2") { 
-			SongSelector.songName = GetComponentInChildren<Text>().text;
-		}
 	}
 
 	public void setLeaderBoard() {

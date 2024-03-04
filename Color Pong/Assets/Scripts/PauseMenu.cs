@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class PauseMenu : MonoBehaviour {
 	public AudioSource songAudio;
 
 	public GameObject pauseMenuUI;
+	public GameObject blockManager;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +26,13 @@ public class PauseMenu : MonoBehaviour {
 			else{
 				Pause();
 			}
+		}
+		if (gameIsPaused) {
+			if (Input.GetKeyDown(KeyCode.M)) {
+				Resume();
+				blockManager.GetComponent<blockManager>().resetForNextGame();
+                SceneManager.LoadScene(0);
+            }
 		}
 	}
 
